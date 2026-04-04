@@ -1,3 +1,4 @@
+# FastAPI entry point
 from fastapi import FastAPI, HTTPException
 from app.models import (
     ChatMessage,
