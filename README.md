@@ -50,6 +50,13 @@ A comprehensive testing strategy is applied across the Software Development Life
 
 Testing artefacts, defect logs, and traceability matrices are included to support auditability and quality evaluation.
 
+
+## API Testing (Postman)
+
+Postman collections are maintained in the `/postman` directory and are used for
+integration, system, and regression testing of the DDR workflow.
+
+
 ---
 
 ## Disclaimer
