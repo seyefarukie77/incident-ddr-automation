@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: incident-ddr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: incident-ddr
+  template:
+    metadata:
+      labels:
+        app: incident-ddr
+    spec:
+      containers:
+        - name: api
+          image: europe-west2-docker.pkg.dev/PROJECT_ID/ddr/incident-ddr:latest
+          ports:
+            - containerPort: 8000
