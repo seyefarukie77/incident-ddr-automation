@@ -1,13 +1,5 @@
 name: Postman API Tests (Newman)
 
-- name: Validate Postman environment JSON
-  run: jq . postman/incident-ddr-environment.json
-
-- name: Run Newman integration tests
-  run: |
-    newman run postman/incident-ddr-collection.json \
-      -e postman/incident-ddr-environment.json
-
 on:
   push:
     branches: [ "main" ]
@@ -44,6 +36,13 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Postman collection with Newman
+      - name: Validate Postman collection JSON
+        run: jq . postman/incident-ddr-collection.json
+
+      - name: Validate Postman environment JSON
+        run: jq . postman/incident-ddr-environment.json
+
+      - name: Run Postman integration tests with Newman
         run: |
-          newman run postman/incident-ddr-collection.json
+          newman run postman/incident-ddr-collection.json \
+            -e postman/incident-ddr-environment.json
