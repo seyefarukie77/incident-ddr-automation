@@ -11,14 +11,19 @@ from app.models import (
 from app.services.timeline import extract_timeline
 from app.services.ddr_mapper import map_ddr_phase
 from app.services.prompts import generate_ddr_prompts
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
+from pydantic import BaseModel, AwareDatetime
 
 app = FastAPI(
     title="Incident DDR Automation API",
     description="Post‑Incident Review Automation Tool aligned to Detect → Diagnose → Recover (DDR)",
     version="1.0.0",
 )
+
+class PullChatsRequest(BaseModel):
+    start_time: AwareDatetime
+    end_time: AwareDatetime
 
 # --- Mock chat store (for assessment/testing purposes)
 MOCK_CHAT_DATA = [
@@ -47,7 +52,6 @@ MOCK_CHAT_DATA = [
         text="Service restored, monitoring stable",
     ),
 ]
-
 
 @app.post("/chats/pull", response_model=List[ChatMessage])
 def pull_chats(request: ChatPullRequest):
