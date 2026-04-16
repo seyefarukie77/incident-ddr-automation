@@ -103,3 +103,25 @@ incident-ddr-automation/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
+
+GitHub
+ ├─ Terraform → GCP (GKE, VPC, SA)
+ └─ GitHub Actions
+     ├─ Build Docker image
+     ├─ Push to Artifact Registry
+     ├─ Terraform apply
+     └─ kubectl deploy
+
+incident-ddr-automation/
+├── app/
+├── Dockerfile
+├── terraform/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── versions.tf
+├── k8s/
+│   ├── deployment.yaml
+│   └── service.yaml
+└── .github/workflows/
+    └── deploy.yml
