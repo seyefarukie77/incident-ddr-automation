@@ -907,12 +907,12 @@ def get_rules(severity: str) -> RulesResponse:
         raise HTTPException(status_code=404, detail=f"Invalid severity '{severity}'. Use SEV1/SEV2/SEV3.")
     return RulesResponse(severity=sev, rules=rules)
 
+@app.get("/")
+def root():
+    return {"message": "Incident DDR API is running"}
+
 
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
 
-  
-@app.get("/")
-def root():
-    return {"message": "Incident DDR API is running"}
