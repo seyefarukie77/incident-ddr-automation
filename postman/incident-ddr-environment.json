@@ -1,9 +1,9 @@
 {
-  "name": "local",
+  "name": "cloud-run",
   "values": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8000",
+      "value": "https://incident-ddr-api-euiamcbshq-nw.a.run.app",
       "enabled": true
     }
   ]
