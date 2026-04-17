@@ -9,18 +9,14 @@ resource "google_cloud_run_service" "api" {
 
   template {
     spec {
+      timeout_seconds = 300
+
       containers {
         image = var.image
-
-        resources {
-          limits = {
-            memory = "512Mi"
-            cpu    = "1"
           }
         }
       }
     }
-  }
 
   traffic {
     percent         = 100
