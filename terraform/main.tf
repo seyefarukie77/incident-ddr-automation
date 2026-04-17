@@ -13,10 +13,9 @@ resource "google_cloud_run_service" "api" {
 
       containers {
         image = var.image
-          }
-        }
       }
     }
+  }
 
   traffic {
     percent         = 100
