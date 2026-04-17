@@ -863,7 +863,6 @@ def generate_pir_pack(incident: IncidentRecord, request: PIRPackRequest) -> PIRP
         readinessStatus=assessment.overallStatus,
     )
 
-
 # ----------------------------
 # FastAPI app + endpoints (thin)
 # ----------------------------
@@ -873,7 +872,6 @@ app = FastAPI(
     version="1.0.0",
     description="Backend API for DDR completeness validation and PIR pack generation (static mock dataset).",
 )
-
 
 @app.get("/v1/incidents/{incidentId}", response_model=IncidentRecord)
 def get_incident(
