@@ -911,3 +911,8 @@ def get_rules(severity: str) -> RulesResponse:
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
+
+  
+@app.get("/")
+def root():
+    return {"message": "Incident DDR API is running"}
