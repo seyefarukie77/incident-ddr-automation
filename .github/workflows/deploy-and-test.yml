@@ -120,3 +120,9 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+          
+      - name: Run Playwright negative and edge‑case tests
+        env:
+          BASE_URL: ${{ needs.deploy.outputs.cloud_run_url }}
+        run: |
+          npm run test:e2e:ci
