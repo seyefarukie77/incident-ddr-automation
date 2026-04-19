@@ -173,6 +173,33 @@ jobs:
         run: |
           k6 run performance/stress_test.js
 
+  regression-tests:
+  name: Regression Tests – API & UI
+  runs-on: ubuntu-latest
+  needs: deploy
+
+  steps:
+    - uses: actions/checkout@v4
+
+    # ---------- API REGRESSION ----------
+    - name: Run API regression tests (Postman)
+      run: |
+        npm install -g newman
+        newman run postman/incident-ddr-collection.json
+
+    # ---------- UI REGRESSION ----------
+    - name: Install Playwright
+      run: |
+        npm ci
+        npx playwright install --with-deps
+
+    - name: Run UI regression tests
+      env:
+        BASE_URL: ${{ needs.deploy.outputs.cloud_run_url }}
+      run: |
+        npx playwright test --grep @regression
+
+
   playwright-tests:
     name: Run Playwright End‑to‑End & Integration Tests
     runs-on: ubuntu-latest
