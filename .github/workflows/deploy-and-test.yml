@@ -59,24 +59,55 @@ quality-gates:
   name: Quality Gates – Lint & Unit Tests (Python)
   runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-        cache: "pip"
+jobs:
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+  quality-gates:
+    name: Quality Gates – Unit Tests (Python)
+    runs-on: ubuntu-latest
 
-    - name: Run unit tests (pytest)
-      run: |
-        pytest --maxfail=1 --disable-warnings -q
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: pytest
+
+
+  sonar-security-scan:
+    name: Security Scan – Sonar (SAST)
+    runs-on: ubuntu-latest
+    needs: quality-gates
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run tests with coverage
+        run: |
+          pip install -r requirements.txt coverage
+          coverage run -m pytest
+          coverage xml
+
+      - name: Sonar Scan
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+
 
   postman-tests:
     name: Run Postman / Newman Tests
