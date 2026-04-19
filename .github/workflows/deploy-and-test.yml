@@ -70,9 +70,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+          
       - name: Run unit tests
-        run: pytest tests/unit
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          pytest tests/unit
 
 
   sonar-security-scan:

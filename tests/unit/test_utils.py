@@ -7,8 +7,11 @@ from app.main import (
     parse_iso_datetime,
     is_non_trivial_text,
     run_ddr_assessment,
+    evaluate_detect,
+    evaluate_pir_readiness,
     MOCK_INCIDENTS,
     CheckStatus,
+    Severity,
 )
 
 
