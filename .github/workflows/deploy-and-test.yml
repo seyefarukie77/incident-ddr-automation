@@ -72,7 +72,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run unit tests
-        run: pytest
+        run: pytest tests/unit
 
 
   sonar-security-scan:
