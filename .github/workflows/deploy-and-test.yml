@@ -185,9 +185,7 @@ jobs:
       - name: Run API regression tests (Postman)
         run: |
           newman run postman/incident-ddr-collection.json \
-          -e postman/cloud-run.postman_environment.json \
           --env-var baseUrl=${{ needs.deploy.outputs.cloud_run_url }}
-
 
     # ---------- UI REGRESSION ----------
       - name: Install Playwright

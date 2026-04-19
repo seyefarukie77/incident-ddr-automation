@@ -2,7 +2,7 @@
   "name": "cloud-run",
   "values": [
     {
-      "key": "baseurl",
+      "key": "baseUrl",
       "value": "https://incident-ddr-api-euiamcbshq-nw.a.run.app",
       "enabled": true
     }
