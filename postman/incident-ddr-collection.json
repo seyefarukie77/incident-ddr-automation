@@ -13,6 +13,11 @@
           "script": {
             "type": "text/javascript",
             "exec": [
+              "pm.test('ENV GUARD – baseUrl is defined', function () {",
+              "  const baseUrl = pm.variables.get('baseUrl');",
+              "  pm.expect(baseUrl, 'baseUrl must be set').to.be.a('string').and.not.empty;",
+              "});",
+              "",
               "pm.test('Status code is 200', function () {",
               "  pm.response.to.have.status(200);",
               "});",
