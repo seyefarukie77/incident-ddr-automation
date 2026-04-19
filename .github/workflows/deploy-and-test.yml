@@ -55,11 +55,6 @@ jobs:
 
           echo "cloud_run_url=$(terraform output -raw cloud_run_url)" >> $GITHUB_OUTPUT
   
-quality-gates:
-  name: Quality Gates – Lint & Unit Tests (Python)
-  runs-on: ubuntu-latest
-
-
 jobs:
 
   quality-gates:
