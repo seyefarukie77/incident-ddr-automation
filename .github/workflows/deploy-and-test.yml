@@ -150,6 +150,8 @@ jobs:
 
     - name: Install k6
       run: |
+        curl -s https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
         sudo apt-get update
         sudo apt-get install -y k6
 
@@ -158,6 +160,17 @@ jobs:
         BASE_URL: ${{ needs.deploy.outputs.cloud_run_url }}
       run: |
         k6 run performance/api_performance_test.js
+    
+    - name: Run spike test
+      env:
+        BASE_URL: ${{ needs.deploy.outputs.cloud_run_url }}
+      run: k6 run performance/spike_test.js
+
+    - name: Run stress test
+      env:
+          BASE_URL: ${{ needs.deploy.outputs.cloud_run_url }}
+          run: k6 run performance/stress_test.js
+
 
   playwright-tests:
     name: Run Playwright End‑to‑End & Integration Tests
