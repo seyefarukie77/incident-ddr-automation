@@ -3,4 +3,4 @@ uvicorn
 pydantic
 pytest
 pylint
-flake8
+Flake8

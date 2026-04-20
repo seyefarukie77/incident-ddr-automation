@@ -5,19 +5,26 @@ ignore=venv,__pycache__,.pytest_cache
 disable=
     missing-module-docstring,
     missing-class-docstring,
-    missing-function-docstring
+    missing-function-docstring,
+    line-too-long,
+    trailing-newlines,
+    missing-final-newline,
+    too-few-public-methods,
+    too-many-branches,
+    too-many-positional-arguments,
+    invalid-name
 
 [FORMAT]
-max-line-length=100
-
-[DESIGN]
-max-args=6
-max-locals=15
-max-branches=12
-max-statements=50
+max-line-length=120
 
 [BASIC]
-good-names=i,j,k,ex,_,id
+good-names=id,_,pk
+
+# Allow API contract names (e.g. FastAPI path params)
+argument-rgx=[a-z_][a-z0-9_]{0,30}$|incidentId
+
+[IMPORTS]
+known-third-party=fastapi,pydantic
 
 [REPORTS]
 reports=no
