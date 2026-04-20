@@ -12,7 +12,10 @@ disable=
     too-few-public-methods,
     too-many-branches,
     too-many-positional-arguments,
-    invalid-name
+    invalid-name,
+    superfluous-parens,
+    too-many-arguments
+
 
 [FORMAT]
 max-line-length=120
