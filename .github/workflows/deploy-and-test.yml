@@ -87,10 +87,10 @@ jobs:
       - name: Run unit tests
         env:
           PYTHONPATH: ${{ github.workspace }}
-          run: |
-            pytest tests/unit
+        run: |
+          pytest tests/unit
 
-
+          
   sonar-security-scan:
     name: Security Scan – Sonar (SAST)
     runs-on: ubuntu-latest
