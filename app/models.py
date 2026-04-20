@@ -4,6 +4,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
+
 class ChatMessage(BaseModel):
     id: str
     timestamp: datetime
