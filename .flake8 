@@ -3,7 +3,8 @@ max-line-length = 120
 exclude =
     .git,
     __pycache__,
-    venv,
+    __py,
+     venv,
     .pytest_cache
 extend-ignore =
     E203,
