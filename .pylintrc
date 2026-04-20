@@ -1,0 +1,24 @@
+[MASTER]
+ignore=venv,__pycache__,.pytest_cache
+
+[MESSAGES CONTROL]
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring
+
+[FORMAT]
+max-line-length=100
+
+[DESIGN]
+max-args=6
+max-locals=15
+max-branches=12
+max-statements=50
+
+[BASIC]
+good-names=i,j,k,ex,_,id
+
+[REPORTS]
+reports=no
+score=yes
