@@ -2,6 +2,7 @@
 from typing import List
 from app.models import TimelineEvent, DDRPromptResponse
 
+
 def generate_ddr_prompts(timeline: List[TimelineEvent]) -> DDRPromptResponse:
     detect_events = [e.summary for e in timeline if e.ddr_phase == "Detect"]
     diagnose_events = [e.summary for e in timeline if e.ddr_phase == "Diagnose"]

@@ -873,6 +873,7 @@ app = FastAPI(
     description="Backend API for DDR completeness validation and PIR pack generation (static mock dataset).",
 )
 
+
 @app.get("/v1/incidents/{incidentId}", response_model=IncidentRecord)
 def get_incident(
     incidentId: str = Path(..., description="Incident identifier e.g., INC13089493", min_length=3, max_length=32)
@@ -916,4 +917,3 @@ def root():
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
-

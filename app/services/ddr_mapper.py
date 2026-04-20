@@ -1,4 +1,5 @@
 # Detect / Diagnose / Recover classification
+
 def map_ddr_phase(text: str) -> str:
     """
     Map message text to Detect / Diagnose / Recover.

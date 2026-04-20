@@ -2,6 +2,7 @@
 from typing import List
 from app.models import ChatMessage, TimelineEvent
 
+
 def extract_timeline(messages: List[ChatMessage]) -> List[TimelineEvent]:
     """
     Convert raw chat messages into a chronological timeline.
