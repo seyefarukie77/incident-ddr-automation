@@ -218,16 +218,42 @@ MOCK_INCIDENTS: Dict[str, IncidentRecord] = {
         customerImpact="Customers could not complete desktop logon for multiple brands during impact window.",
         businessImpact="Increased contact centre load and reduced digital conversion during peak morning period.",
         timelineEvents=[
-            TimelineEvent(timestamp="2026-04-08T01:16:00", eventType="DETECT", description="Synthetic failure detected", owner="SRE"),
-            TimelineEvent(timestamp="2026-04-08T01:23:00", eventType="DETECT", description="Incident created and flagged", owner="Ops"),
-            TimelineEvent(timestamp="2026-04-08T02:30:00", eventType="DIAGNOSE", description="Incident bridge opened", owner="IM"),
-            TimelineEvent(timestamp="2026-04-08T03:30:00", eventType="DIAGNOSE", description="401 Invalid fingerprint cookie identified", owner="Engineer"),
-            TimelineEvent(timestamp="2026-04-08T04:30:00", eventType="RECOVER", description="Revert routing to monolith for all brands", owner="IM"),
-            TimelineEvent(timestamp="2026-04-08T04:58:00", eventType="RECOVER", description="Service stable; monitoring green", owner="SRE"),
+            TimelineEvent(timestamp="2026-04-08T01:16:00", 
+                          eventType="DETECT", description="Synthetic failure detected", 
+                          owner="SRE"),
+            TimelineEvent(timestamp="2026-04-08T01:23:00", 
+                          eventType="DETECT", 
+                          description="Incident created and flagged", 
+                          owner="Ops"),
+            TimelineEvent(timestamp="2026-04-08T02:30:00", 
+                          eventType="DIAGNOSE", 
+                          description="Incident bridge opened", 
+                          owner="IM"),
+            TimelineEvent(timestamp="2026-04-08T03:30:00", 
+                          eventType="DIAGNOSE", 
+                          description="401 Invalid fingerprint cookie identified", 
+                          owner="Engineer"),
+            TimelineEvent(timestamp="2026-04-08T04:30:00", 
+                          eventType="RECOVER", 
+                          description="Revert routing to monolith for all brands", 
+                          owner="IM"),
+            TimelineEvent(timestamp="2026-04-08T04:58:00", 
+                          eventType="RECOVER", 
+                          description="Service stable; " \
+                          "monitoring green", 
+                          owner="SRE"),
         ],
         actionItems=[
-            ActionItem(actionId="AI-001", description="Implement CNF contract test in CI pipeline", owner="K. Seth", dueDate="2026-04-22T17:00:00", status="OPEN"),
-            ActionItem(actionId="AI-002", description="Expand synthetic coverage for desktop logon journey", owner="J. Goddard", dueDate="2026-04-29T17:00:00", status="IN_PROGRESS"),
+            ActionItem(actionId="AI-001", 
+                       description="Implement CNF contract test in CI pipeline", 
+                       owner="K. Seth", 
+                       dueDate="2026-04-22T17:00:00", 
+                       status="OPEN"),
+            ActionItem(actionId="AI-002", 
+                       description="Expand synthetic coverage for desktop logon journey", 
+                       owner="J. Goddard", 
+                       dueDate="2026-04-29T17:00:00", 
+                       status="IN_PROGRESS"),
         ],
         knownGaps=["Monitoring gap between change completion and detection", "Limited offshore log access during diagnosis"],
     ),
@@ -435,6 +461,7 @@ SEVERITY_RULES: Dict[str, Dict[str, Any]] = {
 # ----------------------------
 # Utilities (deterministic, unit-test friendly)
 # ----------------------------
+
 
 def parse_iso_datetime(value: Optional[str]) -> Optional[datetime]:
     """
