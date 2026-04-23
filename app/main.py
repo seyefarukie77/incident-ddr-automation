@@ -21,10 +21,10 @@ from typing import Any, Dict, List, Literal, Optional, Set
 from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel, Field, field_validator
 
-
 # ----------------------------
 # Enums / constants
 # ----------------------------
+
 
 class Severity(str, Enum):
     SEV1 = "SEV1"
@@ -51,6 +51,7 @@ ALLOWED_ACTION_STATUS: Set[str] = {"OPEN", "IN_PROGRESS", "DONE"}
 # ----------------------------
 # Pydantic domain models
 # ----------------------------
+
 
 class Detection(BaseModel):
     detectedBy: Optional[str] = Field(None, description="monitoring/customer/report")
@@ -218,46 +219,61 @@ MOCK_INCIDENTS: Dict[str, IncidentRecord] = {
         customerImpact="Customers could not complete desktop logon for multiple brands during impact window.",
         businessImpact="Increased contact centre load and reduced digital conversion during peak morning period.",
         timelineEvents=[
-            TimelineEvent(timestamp="2026-04-08T01:16:00", 
-                          eventType="DETECT", description="Synthetic failure detected", 
-                          owner="SRE"),
-            TimelineEvent(timestamp="2026-04-08T01:23:00", 
-                          eventType="DETECT", 
-                          description="Incident created and flagged", 
-                          owner="Ops"),
-            TimelineEvent(timestamp="2026-04-08T02:30:00", 
-                          eventType="DIAGNOSE", 
-                          description="Incident bridge opened", 
-                          owner="IM"),
-            TimelineEvent(timestamp="2026-04-08T03:30:00", 
-                          eventType="DIAGNOSE", 
-                          description="401 Invalid fingerprint cookie identified", 
-                          owner="Engineer"),
-            TimelineEvent(timestamp="2026-04-08T04:30:00", 
-                          eventType="RECOVER", 
-                          description="Revert routing to monolith for all brands", 
-                          owner="IM"),
-            TimelineEvent(timestamp="2026-04-08T04:58:00", 
-                          eventType="RECOVER", 
-                          description="Service stable; " \
-                          "monitoring green", 
-                          owner="SRE"),
+            TimelineEvent(
+                timestamp="2026-04-08T01:16:00",
+                eventType="DETECT",
+                description="Synthetic failure detected",
+                owner="SRE",
+            ),
+            TimelineEvent(
+                timestamp="2026-04-08T01:23:00",
+                eventType="DETECT",
+                description="Incident created and flagged",
+                owner="Ops",
+            ),
+            TimelineEvent(
+                timestamp="2026-04-08T02:30:00", eventType="DIAGNOSE", description="Incident bridge opened", owner="IM"
+            ),
+            TimelineEvent(
+                timestamp="2026-04-08T03:30:00",
+                eventType="DIAGNOSE",
+                description="401 Invalid fingerprint cookie identified",
+                owner="Engineer",
+            ),
+            TimelineEvent(
+                timestamp="2026-04-08T04:30:00",
+                eventType="RECOVER",
+                description="Revert routing to monolith for all brands",
+                owner="IM",
+            ),
+            TimelineEvent(
+                timestamp="2026-04-08T04:58:00",
+                eventType="RECOVER",
+                description="Service stable; " "monitoring green",
+                owner="SRE",
+            ),
         ],
         actionItems=[
-            ActionItem(actionId="AI-001", 
-                       description="Implement CNF contract test in CI pipeline", 
-                       owner="K. Seth", 
-                       dueDate="2026-04-22T17:00:00", 
-                       status="OPEN"),
-            ActionItem(actionId="AI-002", 
-                       description="Expand synthetic coverage for desktop logon journey", 
-                       owner="J. Goddard", 
-                       dueDate="2026-04-29T17:00:00", 
-                       status="IN_PROGRESS"),
+            ActionItem(
+                actionId="AI-001",
+                description="Implement CNF contract test in CI pipeline",
+                owner="K. Seth",
+                dueDate="2026-04-22T17:00:00",
+                status="OPEN",
+            ),
+            ActionItem(
+                actionId="AI-002",
+                description="Expand synthetic coverage for desktop logon journey",
+                owner="J. Goddard",
+                dueDate="2026-04-29T17:00:00",
+                status="IN_PROGRESS",
+            ),
         ],
-        knownGaps=["Monitoring gap between change completion and detection", "Limited offshore log access during diagnosis"],
+        knownGaps=[
+            "Monitoring gap between change completion and detection",
+            "Limited offshore log access during diagnosis",
+        ],
     ),
-
     # SEV2 with missing endTime (PIR readiness should FAIL)
     "INC13090001": IncidentRecord(
         incidentId="INC13090001",
@@ -291,15 +307,30 @@ MOCK_INCIDENTS: Dict[str, IncidentRecord] = {
         customerImpact="Some customers experienced delayed payment confirmations.",
         businessImpact="Increased operational monitoring and elevated failure rates during the window.",
         timelineEvents=[
-            TimelineEvent(timestamp="2026-03-12T10:36:00", eventType="DETECT", description="Ops noticed alerts in dashboard", owner="Ops"),
-            TimelineEvent(timestamp="2026-03-12T11:05:00", eventType="DIAGNOSE", description="Timeout pattern linked to dependency", owner="Engineer"),
+            TimelineEvent(
+                timestamp="2026-03-12T10:36:00",
+                eventType="DETECT",
+                description="Ops noticed alerts in dashboard",
+                owner="Ops",
+            ),
+            TimelineEvent(
+                timestamp="2026-03-12T11:05:00",
+                eventType="DIAGNOSE",
+                description="Timeout pattern linked to dependency",
+                owner="Engineer",
+            ),
         ],
         actionItems=[
-            ActionItem(actionId="AI-101", description="Add circuit breaker for dependency X", owner="A. Arora", dueDate="2026-03-26T17:00:00", status="OPEN"),
+            ActionItem(
+                actionId="AI-101",
+                description="Add circuit breaker for dependency X",
+                owner="A. Arora",
+                dueDate="2026-03-26T17:00:00",
+                status="OPEN",
+            ),
         ],
         knownGaps=[],
     ),
-
     # SEV1 with out-of-order timeline and invalid action status (validation should FAIL)
     "INC13091010": IncidentRecord(
         incidentId="INC13091010",
@@ -334,16 +365,33 @@ MOCK_INCIDENTS: Dict[str, IncidentRecord] = {
         businessImpact="Drop in successful authentication rate; increased complaints.",
         timelineEvents=[
             # Out of order on purpose:
-            TimelineEvent(timestamp="2026-04-02T00:30:00", eventType="DIAGNOSE", description="Root cause suspected", owner="Engineer"),
-            TimelineEvent(timestamp="2026-04-01T23:45:00", eventType="DETECT", description="Alert triggered", owner="SRE"),
-            TimelineEvent(timestamp="2026-04-02T01:10:00", eventType="RECOVER", description="Policy updated and stable", owner="IM"),
+            TimelineEvent(
+                timestamp="2026-04-02T00:30:00",
+                eventType="DIAGNOSE",
+                description="Root cause suspected",
+                owner="Engineer",
+            ),
+            TimelineEvent(
+                timestamp="2026-04-01T23:45:00", eventType="DETECT", description="Alert triggered", owner="SRE"
+            ),
+            TimelineEvent(
+                timestamp="2026-04-02T01:10:00",
+                eventType="RECOVER",
+                description="Policy updated and stable",
+                owner="IM",
+            ),
         ],
         actionItems=[
-            ActionItem(actionId="AI-201", description="Create regression test suite for edge policies", owner="D. Loney", dueDate="2026-04-15T17:00:00", status="PENDING"),  # invalid status
+            ActionItem(
+                actionId="AI-201",
+                description="Create regression test suite for edge policies",
+                owner="D. Loney",
+                dueDate="2026-04-15T17:00:00",
+                status="PENDING",
+            ),  # invalid status
         ],
         knownGaps=["Timeline recorded out of order in notes", "Action status taxonomy mismatch"],
     ),
-
     # SEV2 with empty customerImpact (should FAIL for SEV2)
     "INC13092020": IncidentRecord(
         incidentId="INC13092020",
@@ -369,12 +417,11 @@ MOCK_INCIDENTS: Dict[str, IncidentRecord] = {
             timeToRecoverMinutes=54,
         ),
         customerImpact="",  # issue
-        businessImpact="Service unavailable; colleague response capability reduced.",
+        businessImpact="Service unavailable; " "colleague response capability reduced.",
         timelineEvents=[],
         actionItems=[],
         knownGaps=["Missing PIR details from vendor", "No structured timeline captured"],
     ),
-
     # SEV3 lighter requirements; still validates formats/enums
     "INC13093030": IncidentRecord(
         incidentId="INC13093030",
@@ -402,12 +449,33 @@ MOCK_INCIDENTS: Dict[str, IncidentRecord] = {
         customerImpact="Small cohort saw misaligned text on one screen.",
         businessImpact="Negligible; tracked as defect and triaged.",
         timelineEvents=[
-            TimelineEvent(timestamp="2026-04-10T09:00:00", eventType="DETECT", description="Issue reported by colleague", owner="Support"),
-            TimelineEvent(timestamp="2026-04-10T09:30:00", eventType="DIAGNOSE", description="Identified CSS regression", owner="Engineer"),
-            TimelineEvent(timestamp="2026-04-10T10:00:00", eventType="RECOVER", description="Feature flag disabled", owner="Engineer"),
+            TimelineEvent(
+                timestamp="2026-04-10T09:00:00",
+                eventType="DETECT",
+                description="Issue reported by colleague",
+                owner="Support",
+            ),
+            TimelineEvent(
+                timestamp="2026-04-10T09:30:00",
+                eventType="DIAGNOSE",
+                description="Identified CSS regression",
+                owner="Engineer",
+            ),
+            TimelineEvent(
+                timestamp="2026-04-10T10:00:00",
+                eventType="RECOVER",
+                description="Feature flag disabled",
+                owner="Engineer",
+            ),
         ],
         actionItems=[
-            ActionItem(actionId="AI-301", description="Fix CSS regression in next sprint", owner="F. Hendriks", dueDate="2026-04-24T17:00:00", status="OPEN"),
+            ActionItem(
+                actionId="AI-301",
+                description="Fix CSS regression in next sprint",
+                owner="F. Hendriks",
+                dueDate="2026-04-24T17:00:00",
+                status="OPEN",
+            ),
         ],
         knownGaps=[],
     ),
@@ -817,7 +885,9 @@ def run_ddr_assessment(incident: IncidentRecord) -> DDRAssessmentResult:
         elif c.checkName == "Detection Signals Present":
             improvements.append("Capture at least one detection signal (alert, synthetic, ticket) for SEV1/SEV2")
         elif c.checkName == "Hypotheses Present":
-            improvements.append("Document at least one hypothesis with confidence and evidence references for SEV1/SEV2")
+            improvements.append(
+                "Document at least one hypothesis with confidence and evidence references for SEV1/SEV2"
+            )
         elif c.checkName == "Mitigations Present":
             improvements.append("Document at least one mitigation to support recoverability learning for SEV1/SEV2")
         elif c.checkName == "Fix Forward Present":
@@ -856,7 +926,9 @@ def generate_root_cause_section(incident: IncidentRecord) -> RootCauseSection:
         {"hypothesis": h.hypothesis, "confidence": h.confidence, "evidenceRefs": h.evidenceRefs}
         for h in incident.diagnosis.hypotheses
     ]
-    summary = "Root cause not confirmed yet." if not hypotheses else "Root cause under investigation based on hypotheses."
+    summary = (
+        "Root cause not confirmed yet." if not hypotheses else "Root cause under investigation based on hypotheses."
+    )
     return RootCauseSection(
         summary=summary,
         hypotheses=hypotheses,
@@ -889,6 +961,7 @@ def generate_pir_pack(incident: IncidentRecord, request: PIRPackRequest) -> PIRP
         suggestedImprovements=assessment.suggestedImprovements,
         readinessStatus=assessment.overallStatus,
     )
+
 
 # ----------------------------
 # FastAPI app + endpoints (thin)

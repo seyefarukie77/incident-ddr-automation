@@ -9,24 +9,19 @@ def generate_ddr_prompts(timeline: List[TimelineEvent]) -> DDRPromptResponse:
     recover_events = [e.summary for e in timeline if e.ddr_phase == "Recover"]
 
     detect_prompt = (
-        "DETECT:\n"
-        "What alerts or signals identified the incident?\n"
-        "Evidence:\n- " 
-        + "\n- ".join(detect_events)
+        "DETECT:\n" "What alerts or signals identified the incident?\n" "Evidence:\n- " + "\n- ".join(detect_events)
     )
 
     diagnose_prompt = (
         "DIAGNOSE:\n"
         "What analysis was performed to identify the cause?\n"
-        "Evidence:\n- "
-        + "\n- ".join(diagnose_events)
+        "Evidence:\n- " + "\n- ".join(diagnose_events)
     )
 
     recover_prompt = (
         "RECOVER:\n"
         "What actions restored service and prevented recurrence?\n"
-        "Evidence:\n- " 
-        + "\n- ".join(recover_events)
+        "Evidence:\n- " + "\n- ".join(recover_events)
     )
 
     return DDRPromptResponse(
