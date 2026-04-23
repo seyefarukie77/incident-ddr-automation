@@ -21,6 +21,11 @@ disable=
 [FORMAT]
 max-line-length=140
 
+
+[FORMAT]
+max-module-lines=1200
+
+
 [BASIC]
 good-names=id,_,pk
 
