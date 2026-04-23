@@ -77,7 +77,7 @@ jobs:
 
       - name: Run Pylint (static analysis)
         env:
-          PYTHONPATH: ${{ github.workspace }
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           pylint app/
 
