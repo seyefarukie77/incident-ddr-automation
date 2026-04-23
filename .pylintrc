@@ -1,31 +1,26 @@
 [MASTER]
-ignore=venv,__pycache__,.pytest_cache, tests
-persistence=no
+ignore=venv,__pycache__,.pytest_cache,tests
+persistent=no
 
 [MESSAGES CONTROL]
 disable=
     missing-module-docstring,
     missing-class-docstring,
     missing-function-docstring,
-    line-too-long,
-    trailing-newlines,
-    missing-final-newline,
     too-few-public-methods,
     too-many-branches,
     too-many-positional-arguments,
+    too-many-arguments,
+    too-many-lines,
     invalid-name,
     superfluous-parens,
-    too-many-arguments,
-    too-many-lines
-
+    line-too-long
 
 [FORMAT]
 max-line-length=140
 
-
-[FORMAT]
+[DESIGN]
 max-module-lines=1200
-
 
 [BASIC]
 good-names=id,_,pk
