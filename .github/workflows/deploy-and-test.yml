@@ -85,6 +85,11 @@ jobs:
         run: |
           flake8 app/
 
+      - name: Dependency scanning (pip-audit)
+        run: |
+          pip install pip-audit
+          pip audit
+
       - name: Run unit tests
         env:
           PYTHONPATH: ${{ github.workspace }}
