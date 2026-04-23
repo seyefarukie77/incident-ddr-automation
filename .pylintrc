@@ -1,5 +1,6 @@
 [MASTER]
-ignore=venv,__pycache__,.pytest_cache
+ignore=venv,__pycache__,.pytest_cache, tests
+persistence=no
 
 [MESSAGES CONTROL]
 disable=
