@@ -59,7 +59,7 @@ jobs:
           echo "cloud_run_url=$(terraform output -raw cloud_run_url)" >> $GITHUB_OUTPUT
   
   quality-gates:
-    name: Quality Gates – Unit Tests (Python)
+    name: Quality Gates – Unit Tests & Dependency Scanning (Python)
     runs-on: ubuntu-latest
 
     steps:
@@ -74,7 +74,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pylint flake8
-          pip install fastapi uvicorn pytest flake8 httpx
+          pip install fastapi uvicorn pytest pytest-cov flake8 httpx
 
       - name: Run Pylint (static analysis)
         env:
@@ -96,6 +96,17 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest tests/unit
+            --cov=app \
+            --cov-report=term-missing \
+            --cov-report=xml:coverage.xml \
+            --cov-report=html:htmlcov \
+            --cov-fail-under=80
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-coverage
+          path: htmlcov/
 
 
   sonar-security-scan:
