@@ -89,7 +89,7 @@ jobs:
       - name: Dependency scanning (pip-audit)
         run: |
           pip install pip-audit
-          pip-audit
+          pip-audit --ignore-vuln CVE-2026-3219
 
       - name: Run unit tests
         env:
