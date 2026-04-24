@@ -74,6 +74,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pylint flake8
+          pip install fastapi uvicorn pytest flake8 httpx
 
       - name: Run Pylint (static analysis)
         env:
@@ -124,6 +125,48 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
+
+  local-integration-tests:
+    name: CI – Local Integration Tests (Uvicorn + Newman)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Start FastAPI app (Uvicorn)
+        run: |
+          nohup uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+          for i in {1..20}; do
+            if curl -fsS http://127.0.0.1:8000/health >/dev/null; then
+              echo "Local API is up"
+              break
+            fi
+            sleep 1
+          done
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman tests (local)
+        run: |
+          newman run postman/incident-ddr-collection.json \
+          --env-var baseUrl=http://127.0.0.1:8000
+          
 
   postman-tests:
     name: Run Postman / Newman Tests
